@@ -1,4 +1,3 @@
-"""
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -19,7 +18,7 @@ def llm(text):
                 "content":text,
             }
         ],
-        model="llama3-8b-8192",
+        model="meta-llama/llama-4-scout-17b-16e-instruct",
     )
     return chat_completion.choices[0].message.content
 
@@ -77,26 +76,53 @@ if __name__ == '__main__':
         prog='docsum',
         description='summarize the input document',
         )
-    parser.add_argument('filename')
+    parser.add_argument('source',help='Path to the file or URL to summarize')
     args = parser.parse_args()
 
-
-    print('filename=',args.filename)
-    with open(args.filename,'r', encoding='utf-8') as fin:
+    if args.source.lower().startswith('https://'):
+        import requests
+        try:
+            response = requests.get(args.source)
+            encoding = response.encoding if response.encoding else 'utf-8'
+            html = response.content.decode(encoding, errors='replace')
+        except Exception as e:
+            print("Error fetching URL:",e)
+            exit(1)
+        '''
+        print('filename=',args.filename)
+        with open(args.filename,'r', encoding='utf-8') as fin:
         text = fin.read()
         print(summarize_text(text))
-
-
-    # one way to solve the problem of too much text for the context window
-    # is to remove the "unnecessary" text;
-    # for html files, that is the html tags
-    from bs4 import BeautifulSoup
+        '''
+        # one way to solve the problem of too much text for the context window
+        # is to remove the "unnecessary" text;
+        # for html files, that is the html tags
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(html, features="lxml")
+        text = soup.get_text()
+        print("Summary of the webpage:\n")
+        print(summarize_text(text))
+    else:
+        print("Processing file:", agrs.source)
+        try:
+            with open(args.source,'r',encoding='utf-8',errors='replace')as fin:
+                text = fin.read()
+        except Exception as e:
+            print("Error reading file:", e)
+            exit(1)
+        if args.source.lower().endswith('.html')or args.source.lower().endswith('.htm'):
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(text, features="lxml")
+            text = soup.get_text()
+    print("Summary of the document:\n")
+    print(summarize_text(text))
+    """        
     with open(args.filename, 'r') as fin:
         html = fin.read()
         soup = BeautifulSoup(html, features="lxml")
         text = soup.text
         #print('text=', text)
         print(summarize_text(text))
+    """
 
 #print(chat_completion.choices[0].message.content)
-"""
