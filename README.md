@@ -75,6 +75,8 @@ The provided text appears to be a collection of technical code snippets, includi
 There is no text to summarize. The provided text appears to be a collection of code snippets, including JavaScript and CSS, used for a website, likely El Pais, a Spanish news organization, as well as some news summaries. However, if you'd like to provide actual text from an article, I can summarize it for you in 1-3 sentences.  
 
 
-### Additional Notes: 
-The project is produced under the instructions of [CMC-CSCI040](https://github.com/mikeizbicki/cmc-csci040/tree/2025spring/topic_10_Python_LLMs). 
+## Additional Notes: 
+The project is produced under the instructions of [CMC-CSCI040](https://github.com/mikeizbicki/cmc-csci040/tree/2025spring/topic_10_Python_LLMs).   
+The summarization of images is produced with the instructions from [GroqCould](https://console.groq.com/docs/vision).   
+The [LLM Model](https://console.groq.com/playground) is used on the platform of Groq. 
 
