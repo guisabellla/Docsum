@@ -82,6 +82,30 @@ def summarize_image_from_url(image_url):
     )
     return completion.choices[0].message.content
 
+def extract_text_from_pdf(pdf_path):
+    """
+    Extracts text from a PDF file using PyPDF2.
+    """
+    try:
+        from PyPDF2 import PdfReader
+    except ImportError:
+        print("PyPDF2 is required to process PDF files. Install it via 'pip install PyPDF2'.")
+        exit(1)
+    try:
+        reader = PdfReader(pdf_path)
+    except Exception as e:
+        print("Error opening PDF:", e)
+        exit(1)
+    
+    text = ""
+    for page_num, page in enumerate(reader.pages):
+        page_text = page.extract_text()
+        if page_text:
+            text += page_text + "\n"
+        else:
+            print(f"Warning: No text extracted from page {page_num}")
+    return text
+
 # -------------------------
 # Main execution
 # -------------------------
@@ -89,7 +113,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(
         prog='docsum',
-        description='Summarize a local file, webpage URL, or an image URL.'
+        description='Summarize a local file, webpage URL, image URL, or PDF file.'
     )
     parser.add_argument('source', help='Path to a file or URL to summarize')
     args = parser.parse_args()
@@ -97,9 +121,9 @@ if __name__ == '__main__':
     # Define image extensions to check against
     image_extensions = ('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff')
 
-    # If the source starts with http:// or https://, process it as a URL
+    # If the source starts with http:// or https://, process as URL
     if args.source.lower().startswith('http://') or args.source.lower().startswith('https://'):
-        # Check if the URL is likely an image by its extension
+        # If it's an image URL
         if args.source.lower().endswith(image_extensions):
             print("Processing image URL:", args.source)
             summary = summarize_image_from_url(args.source)
@@ -120,10 +144,15 @@ if __name__ == '__main__':
             print(summarize_text(text))
     else:
         # Process as a local file
-        # Check if it's a local image file based on extension
-        if args.source.lower().endswith(image_extensions):
+        file_lower = args.source.lower()
+        if file_lower.endswith(image_extensions):
             print("Local image summarization is not supported. Please provide an image URL.")
             exit(1)
+        elif file_lower.endswith('.pdf'):
+            print("Processing PDF file:", args.source)
+            text = extract_text_from_pdf(args.source)
+            print("Summary of the PDF document:\n")
+            print(summarize_text(text))
         else:
             print("Processing file:", args.source)
             try:
@@ -132,8 +161,8 @@ if __name__ == '__main__':
             except Exception as e:
                 print("Error reading file:", e)
                 exit(1)
-            # Optionally, if the file is HTML, strip out HTML tags:
-            if args.source.lower().endswith(('.html', '.htm')):
+            # If file is HTML, strip out HTML tags
+            if file_lower.endswith(('.html', '.htm')):
                 from bs4 import BeautifulSoup
                 soup = BeautifulSoup(text, features="lxml")
                 text = soup.get_text()
