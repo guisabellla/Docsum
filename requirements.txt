@@ -17,3 +17,6 @@ Requests
 
 BeautifulSoup4
 	pip install beautifulsoup4 
+
+lxml
+	pip install lxml
