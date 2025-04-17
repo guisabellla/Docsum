@@ -3,6 +3,8 @@
 I used the `docsum.py` file to request the **meta-llama/llama-4-scout-17b-16e-instruct** model from **GROQ** to summarize texts or images for me. For now, the program can summarize files including txt files, html files, pdf files, images, and webpages by providing URLs. 
 
 ## How to Use the Program
+
+Before you run the program, read the `requirements.txt` file and download the dependencies to ensure the python file is able to work. 
 ### For HTML files:  
 Example command:
 ```
