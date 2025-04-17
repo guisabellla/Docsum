@@ -1,0 +1,19 @@
+Dependencies of the program:
+
+Groq Python API library
+	pip install groq
+
+python-dotenv
+	pip install python-dotenv
+
+PyPDF2
+	pip install PyPDF2
+
+argparse
+	pip install argparse
+
+Requests
+	pip install requests
+
+BeautifulSoup4
+	pip install beautifulsoup4 
