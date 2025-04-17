@@ -6,7 +6,7 @@ I used the `docsum.py` file to request the **meta-llama/llama-4-scout-17b-16e-in
 ### For HTML files:  
 Example command:
 ```
-python 3 Docsum/docsum.py docs/news-mx.html
+python3 docsum.py docs/news-mx.html
 ```
 You will get results similar to:  
 
@@ -19,7 +19,7 @@ The US Supreme Court has allowed President Donald Trump to continue using a 1798
 ### For TXT files:  
 Example command:
 ```
-python 3 Docsum/docsum.py docs/constitution-mx.txt
+python3 docsum.py docs/constitution-mx.txt
 ```
 You will get results similar to:  
   
@@ -29,7 +29,7 @@ La Constitución Mexicana de 1917, modificada hasta 2010, establece las leyes y 
 ### For PDF files:  
   Example command:
   ```
-python 3 Docsum/docsum.py docs/research_paper.pdf
+python3 docsum.py docs/research_paper.pdf
   ```
   You will get results similar to:  
 A survey of 1,500 students at a large US public university found that the COVID-19 pandemic had significant negative effects on students' experiences and expectations, including delayed graduation, lost jobs or internships, and decreased expected earnings. The pandemic's impact was particularly pronounced for students from disadvantaged backgrounds, including lower-income students, racial minorities, and first-generation students, who experienced larger negative impacts on their academic outcomes. Policymakers may be able to mitigate these effects by addressing the economic and health impacts of the pandemic, which could help prevent the pandemic from exacerbating existing socioeconomic divides in higher education.
@@ -38,7 +38,7 @@ A survey of 1,500 students at a large US public university found that the COVID-
 ### For Images:  
   Example command (You can directly provide the URL of the image):
 ```
-python 3 Docsum/docsum.py https://www.cmc.edu/sites/default/files/about/images/20170213-cube.jpg
+python3 docsum.py https://www.cmc.edu/sites/default/files/about/images/20170213-cube.jpg
 ```
   You will get results similar to:  
   **Summary of the image:**   
@@ -65,7 +65,7 @@ python 3 Docsum/docsum.py https://www.cmc.edu/sites/default/files/about/images/2
 ### Webpages  
 Example command (You can directly provide the URL of the webpage):
 ```
-python 3 Docsum/docsum.py https://elpais.com/us/
+python3 docsum.py https://elpais.com/us/
 ```
 You will get results similar to:  
 **Summary of the webpage:**  
